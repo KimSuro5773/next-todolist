@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
+
+const nanumSquare = localFont({
+  src: [
+    { path: "../../public/fonts/NanumSquareR.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/NanumSquareB.otf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-nanum-square",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body className={nanumSquare.className}>
         <div className="min-h-screen w-full flex flex-col">
           <Header />
           <main className="mx-auto w-full max-w-4xl flex-1 flex flex-col">{children}</main>
