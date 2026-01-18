@@ -14,7 +14,7 @@ export default async function Home() {
   const initialTodos: TodoData[] = await response.json();
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 px-6 lg:px-0">
       <TodoInput />
       <TodoSection initialTodos={initialTodos} />
     </div>

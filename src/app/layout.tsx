@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <div className="min-h-screen w-full flex flex-col">
           <Header />
-          <main className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 flex-1">{children}</main>
+          <main className="mx-auto w-full max-w-4xl flex-1 flex flex-col">{children}</main>
         </div>
       </body>
     </html>
