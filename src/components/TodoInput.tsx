@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import { createTodo } from "@/actions/todo";
@@ -28,7 +28,11 @@ export default function TodoInput() {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <Button preset={inputValue.trim() ? "addPrimary" : "add"} type="submit" disabled={isPending}>
+      <Button
+        preset={inputValue.trim() ? "addPrimary" : "add"}
+        type="submit"
+        disabled={isPending || !inputValue.trim()}
+      >
         <span>추가하기</span>
       </Button>
     </form>

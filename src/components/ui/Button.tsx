@@ -78,7 +78,7 @@ export default function Button({ preset, children, className = "", ...props }: B
   const Icon = config.icon;
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-1 font-bold rounded-3xl cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center gap-1 font-bold rounded-3xl cursor-pointer disabled:cursor-not-allowed";
 
   const styles = `${baseStyles} ${config.baseStyle} ${config.size} ${className}`;
 
