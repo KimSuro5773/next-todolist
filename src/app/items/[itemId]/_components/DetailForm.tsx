@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/components/ui/Button";
 import { DetailTodoData } from "@/types/todo";
 import { useState } from "react";
+import TodoDetailHeader from "./TodoDetailHeader";
 
 export default function DetailForm({ detailTodoData }: { detailTodoData: DetailTodoData }) {
   const [formState, setFormState] = useState<DetailTodoData>(detailTodoData);
@@ -31,7 +31,12 @@ export default function DetailForm({ detailTodoData }: { detailTodoData: DetailT
 
   return (
     <div>
-      <Button preset={isEdited ? "completeActive" : "complete"}>수정 완료</Button>
+      <TodoDetailHeader
+        name={formState.name}
+        isCompleted={formState.isCompleted}
+        onNameChange={handleNameChange}
+        onToggle={handleToggle}
+      />
     </div>
   );
 }

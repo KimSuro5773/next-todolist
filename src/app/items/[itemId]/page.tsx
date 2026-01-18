@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: Promise<{ itemId: strin
   const detailTodoData: DetailTodoData = await response.json();
 
   return (
-    <div className="bg-white flex-1 flex flex-col">
+    <div className="bg-white flex-1 flex flex-col px-6 lg:px-0">
       <DetailForm detailTodoData={detailTodoData} />
     </div>
   );
