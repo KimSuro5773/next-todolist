@@ -10,3 +10,5 @@ export interface UpdateTodoRequest {
   imageUrl?: string;
   isCompleted?: boolean;
 }
+
+export type ListType = "todo" | "done";
