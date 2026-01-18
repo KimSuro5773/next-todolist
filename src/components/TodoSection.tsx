@@ -22,11 +22,11 @@ export default function TodoSection({ initialTodos }: { initialTodos: TodoData[]
   return (
     <div className="flex flex-col lg:flex-row gap-12 lg:gap-6">
       <section className="space-y-4 flex-1">
-        <Image src={"/todo.svg"} alt="todo list" width={100} height={36} />
+        <Image src={"/todo/todo.svg"} alt="todo list" width={100} height={36} />
         <TodoList todos={todoList} onToggle={handleToggle} />
       </section>
       <section className="space-y-4 flex-1">
-        <Image src={"/done.svg"} alt="todo done list" width={100} height={36} />
+        <Image src={"/todo/done.svg"} alt="todo done list" width={100} height={36} />
         <TodoList todos={doneList} onToggle={handleToggle} />
       </section>
     </div>

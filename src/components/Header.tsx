@@ -8,7 +8,7 @@ export default function Header() {
         <div className="flex align-center h-15">
           <Link href={"/"} className="flex items-center">
             <Image
-              src={"/Small_Logo.svg"}
+              src={"/logo/Small_Logo.svg"}
               alt="Todolist do it Logo"
               width={71}
               height={40}
@@ -17,7 +17,7 @@ export default function Header() {
             />
 
             <Image
-              src={"/Large_Logo.svg"}
+              src={"/logo/Large_Logo.svg"}
               alt="Todolist do it Logo"
               width={151}
               height={40}
