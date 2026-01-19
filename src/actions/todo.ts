@@ -43,6 +43,24 @@ export async function createTodo(
   }
 }
 
+// Todo 이미지 업로드
+export async function uploadImage(formData: FormData) {
+  const file = formData.get("image") as File;
+  if (!file) throw new Error("파일이 없습니다.");
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/images/upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("이미지 업로드 실패");
+  }
+
+  const data = await response.json();
+  return data.url;
+}
+
 // TodoList 완료상태 토글용
 export async function toggleTodo(itemId: number, isCompleted: boolean) {
   const result = await updateTodo(itemId, { isCompleted });

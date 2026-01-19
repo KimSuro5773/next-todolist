@@ -3,6 +3,7 @@
 import { DetailTodoData } from "@/types/todo";
 import { useState } from "react";
 import TodoDetailHeader from "./TodoDetailHeader";
+import ImageUpload from "./ImageUpload";
 
 export default function DetailForm({ detailTodoData }: { detailTodoData: DetailTodoData }) {
   const [formState, setFormState] = useState<DetailTodoData>(detailTodoData);
@@ -30,13 +31,16 @@ export default function DetailForm({ detailTodoData }: { detailTodoData: DetailT
   };
 
   return (
-    <div>
+    <div className="space-y-6">
       <TodoDetailHeader
         name={formState.name}
         isCompleted={formState.isCompleted}
         onNameChange={handleNameChange}
         onToggle={handleToggle}
       />
+      <div className="flex flex-col lg:flex-row gap-6">
+        <ImageUpload imageUrl={formState.imageUrl} onImageChange={handleImageChange} />
+      </div>
     </div>
   );
 }
