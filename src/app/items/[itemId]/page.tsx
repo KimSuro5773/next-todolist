@@ -1,6 +1,36 @@
 import { DetailTodoData } from "@/types/todo";
 import DetailForm from "./_components/DetailForm";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ itemId: string }>;
+}): Promise<Metadata> {
+  const { itemId } = await params;
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items/${itemId}`, {
+    next: { tags: [`todo-${itemId}`] },
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const detailTodoData: DetailTodoData = await response.json();
+
+  return {
+    title: `${detailTodoData.name} - do it`,
+    description: `${detailTodoData.name}의 상세 페이지`,
+    icons: "/favicon/favicon.svg",
+    openGraph: {
+      title: `${detailTodoData.name} - do it`,
+      description: `${detailTodoData.name}의 상세 페이지`,
+      images: [detailTodoData.imageUrl],
+    },
+  };
+}
 
 export default async function Page({ params }: { params: Promise<{ itemId: string }> }) {
   const { itemId } = await params;
