@@ -2,6 +2,7 @@
 
 import { UpdateTodoRequest } from "@/types/todo";
 import { updateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 // Todo 수정
 export async function updateTodo(itemId: number, data: UpdateTodoRequest) {
@@ -41,6 +42,18 @@ export async function createTodo(
   } catch (error) {
     return { status: false, error: `할 일 추가 실패: ${error}` };
   }
+}
+
+// Todo 삭제
+export async function deleteTodo(itemId: number) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items/${itemId}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) throw new Error(response.statusText);
+
+  updateTag(`todo-${itemId}`);
+  return;
 }
 
 // Todo 이미지 업로드

@@ -5,9 +5,19 @@ import { useState } from "react";
 import TodoDetailHeader from "./TodoDetailHeader";
 import ImageUpload from "./ImageUpload";
 import MemoTextarea from "./MemoTextarea";
+import Button from "@/components/ui/Button";
+import { deleteTodo } from "@/actions/todo";
+import { useRouter } from "next/navigation";
 
-export default function DetailForm({ detailTodoData }: { detailTodoData: DetailTodoData }) {
+export default function DetailForm({
+  detailTodoData,
+  itemId,
+}: {
+  detailTodoData: DetailTodoData;
+  itemId: string;
+}) {
   const [formState, setFormState] = useState<DetailTodoData>(detailTodoData);
+  const router = useRouter();
 
   const isEdited =
     formState.name !== detailTodoData.name ||
@@ -31,6 +41,11 @@ export default function DetailForm({ detailTodoData }: { detailTodoData: DetailT
     setFormState((prev) => ({ ...prev, imageUrl }));
   };
 
+  const handleDelete = async () => {
+    await deleteTodo(Number(itemId));
+    router.replace("/");
+  };
+
   return (
     <div className="space-y-6">
       <TodoDetailHeader
@@ -42,6 +57,13 @@ export default function DetailForm({ detailTodoData }: { detailTodoData: DetailT
       <div className="flex flex-col lg:flex-row gap-6">
         <ImageUpload imageUrl={formState.imageUrl} onImageChange={handleImageChange} />
         <MemoTextarea memo={formState.memo} onMemoChange={handleMemoChange} />
+      </div>
+
+      <div className="flex justify-center gap-4 mb-34.75 lg:justify-end">
+        <Button preset={isEdited ? "completeActive" : "complete"}>수정 완료</Button>
+        <Button preset="delete" onClick={handleDelete}>
+          삭제하기
+        </Button>
       </div>
     </div>
   );
