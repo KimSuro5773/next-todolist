@@ -41,7 +41,6 @@ export async function updateTodo(itemId: number, data: UpdateTodoRequest) {
   if (!response.ok) throw new Error(response.statusText);
 
   updateTag("todos");
-  updateTag(`todo-${itemId}`);
 
   return response.json();
 }
@@ -54,7 +53,7 @@ export async function deleteTodo(itemId: number) {
 
   if (!response.ok) throw new Error(response.statusText);
 
-  updateTag(`todo-${itemId}`);
+  updateTag("todos");
   return;
 }
 
@@ -79,7 +78,6 @@ export async function uploadImage(formData: FormData) {
 // TodoList 완료상태 토글용
 export async function toggleTodo(itemId: number, isCompleted: boolean) {
   const result = await updateTodo(itemId, { isCompleted });
-  updateTag("todos");
 
   return result;
 }
