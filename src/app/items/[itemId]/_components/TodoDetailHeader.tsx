@@ -1,4 +1,15 @@
 import CheckBoxIcon from "@/components/icons/CheckboxIcon";
+import Button from "@/components/ui/Button";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Input from "@/components/ui/Input";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { useState } from "react";
 
 interface TodoDetailHeaderProps {
   name: string;
@@ -13,10 +24,18 @@ export default function TodoDetailHeader({
   onNameChange,
   onToggle,
 }: TodoDetailHeaderProps) {
-  const handleEdit = () => {
-    const newName = window.prompt("할 일 이름 수정", name);
-    if (newName !== null && newName.trim() !== "") {
-      onNameChange(newName);
+  const [isOpen, setIsOpen] = useState(false);
+  const [editName, setEditName] = useState(name);
+
+  const handleOpen = () => {
+    setEditName(name);
+    setIsOpen(true);
+  };
+
+  const handleSubmit = () => {
+    if (editName.trim() !== "") {
+      onNameChange(editName);
+      setIsOpen(false);
     }
   };
 
@@ -30,12 +49,37 @@ export default function TodoDetailHeader({
         </button>
 
         <button
-          onClick={handleEdit}
+          onClick={handleOpen}
           className="font-bold text-[20px] underline cursor-pointer max-w-[80%] truncate"
         >
           {name}
         </button>
       </div>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="bg-slate-100">
+          <DialogHeader>
+            <DialogTitle>할 일 이름 수정</DialogTitle>
+          </DialogHeader>
+
+          <Input
+            type="text"
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+            placeholder="할 일 이름을 입력하세요"
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+          />
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button preset="delete">취소</Button>
+            </DialogClose>
+            <Button preset="completeActive" onClick={handleSubmit}>
+              수정
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
