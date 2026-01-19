@@ -15,6 +15,11 @@ export async function generateMetadata({
   });
 
   if (!response.ok) {
+    if (response.status === 404) {
+      return {
+        title: "할 일을 찾을 수 없습니다 - do it",
+      };
+    }
     throw new Error(response.statusText);
   }
 
