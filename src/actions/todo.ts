@@ -5,7 +5,7 @@ import { updateTag } from "next/cache";
 
 // Todo 수정
 export async function updateTodo(itemId: number, data: UpdateTodoRequest) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/${itemId}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items/${itemId}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -28,7 +28,7 @@ export async function createTodo(
   }
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),

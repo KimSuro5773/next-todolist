@@ -3,7 +3,7 @@ import TodoSection from "@/components/TodoSection";
 import { TodoData } from "@/types/todo";
 
 export default async function Home() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}?pageSize=50`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items?pageSize=50`, {
     next: { tags: ["todos"] },
   });
 
@@ -14,7 +14,7 @@ export default async function Home() {
   const initialTodos: TodoData[] = await response.json();
 
   return (
-    <div className="mt-6 px-6 lg:px-0">
+    <div className="mt-6 px-6 lg:px-4">
       <TodoInput />
       <TodoSection initialTodos={initialTodos} />
     </div>
