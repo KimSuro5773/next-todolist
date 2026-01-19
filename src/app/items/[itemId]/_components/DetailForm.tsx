@@ -6,7 +6,7 @@ import TodoDetailHeader from "./TodoDetailHeader";
 import ImageUpload from "./ImageUpload";
 import MemoTextarea from "./MemoTextarea";
 import Button from "@/components/ui/Button";
-import { deleteTodo } from "@/actions/todo";
+import { deleteTodo, updateTodo } from "@/actions/todo";
 import { useRouter } from "next/navigation";
 
 export default function DetailForm({
@@ -46,6 +46,16 @@ export default function DetailForm({
     router.replace("/");
   };
 
+  const handleSubmit = async () => {
+    await updateTodo(Number(itemId), {
+      name: formState.name,
+      memo: formState.memo || "",
+      imageUrl: formState.imageUrl || "",
+      isCompleted: formState.isCompleted,
+    });
+    router.replace("/");
+  };
+
   return (
     <div className="space-y-6">
       <TodoDetailHeader
@@ -60,7 +70,9 @@ export default function DetailForm({
       </div>
 
       <div className="flex justify-center gap-4 mb-34.75 lg:justify-end">
-        <Button preset={isEdited ? "completeActive" : "complete"}>수정 완료</Button>
+        <Button onClick={handleSubmit} preset={isEdited ? "completeActive" : "complete"}>
+          수정 완료
+        </Button>
         <Button preset="delete" onClick={handleDelete}>
           삭제하기
         </Button>

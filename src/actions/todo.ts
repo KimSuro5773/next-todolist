@@ -2,20 +2,6 @@
 
 import { UpdateTodoRequest } from "@/types/todo";
 import { updateTag } from "next/cache";
-import { redirect } from "next/navigation";
-
-// Todo 수정
-export async function updateTodo(itemId: number, data: UpdateTodoRequest) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items/${itemId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) throw new Error(response.statusText);
-
-  return response.json();
-}
 
 // Todo 등록
 export async function createTodo(
@@ -42,6 +28,22 @@ export async function createTodo(
   } catch (error) {
     return { status: false, error: `할 일 추가 실패: ${error}` };
   }
+}
+
+// Todo 수정
+export async function updateTodo(itemId: number, data: UpdateTodoRequest) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/items/${itemId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error(response.statusText);
+
+  updateTag("todos");
+  updateTag(`todo-${itemId}`);
+
+  return response.json();
 }
 
 // Todo 삭제
