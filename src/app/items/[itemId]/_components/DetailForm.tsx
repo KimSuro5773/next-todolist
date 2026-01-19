@@ -4,6 +4,7 @@ import { DetailTodoData } from "@/types/todo";
 import { useState } from "react";
 import TodoDetailHeader from "./TodoDetailHeader";
 import ImageUpload from "./ImageUpload";
+import MemoTextarea from "./MemoTextarea";
 
 export default function DetailForm({ detailTodoData }: { detailTodoData: DetailTodoData }) {
   const [formState, setFormState] = useState<DetailTodoData>(detailTodoData);
@@ -40,6 +41,7 @@ export default function DetailForm({ detailTodoData }: { detailTodoData: DetailT
       />
       <div className="flex flex-col lg:flex-row gap-6">
         <ImageUpload imageUrl={formState.imageUrl} onImageChange={handleImageChange} />
+        <MemoTextarea memo={formState.memo} onMemoChange={handleMemoChange} />
       </div>
     </div>
   );
