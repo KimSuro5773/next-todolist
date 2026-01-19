@@ -78,7 +78,7 @@ export default function DetailForm({
           onClick={handleSubmit}
           preset={isEdited ? "completeActive" : "complete"}
           loading={isSubmitting}
-          disabled={isSubmitting || isDeleting}
+          disabled={!isEdited || isSubmitting || isDeleting}
         >
           수정 완료
         </Button>
