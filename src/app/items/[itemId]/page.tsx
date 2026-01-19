@@ -1,6 +1,6 @@
 import { DetailTodoData } from "@/types/todo";
 import DetailForm from "./_components/DetailForm";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: Promise<{ itemId: string }> }) {
   const { itemId } = await params;
@@ -10,7 +10,7 @@ export default async function Page({ params }: { params: Promise<{ itemId: strin
   });
 
   if (!response.ok) {
-    if (response.status === 404) redirect("/");
+    if (response.status === 404) notFound();
 
     throw new Error(response.statusText);
   }
