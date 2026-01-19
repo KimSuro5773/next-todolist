@@ -16,6 +16,8 @@ export default function DetailForm({
   detailTodoData: DetailTodoData;
   itemId: string;
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [formState, setFormState] = useState<DetailTodoData>(detailTodoData);
   const router = useRouter();
 
@@ -42,11 +44,13 @@ export default function DetailForm({
   };
 
   const handleDelete = async () => {
+    setIsDeleting(true);
     await deleteTodo(Number(itemId));
     router.replace("/");
   };
 
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     await updateTodo(Number(itemId), {
       name: formState.name,
       memo: formState.memo || "",
@@ -70,10 +74,20 @@ export default function DetailForm({
       </div>
 
       <div className="flex justify-center gap-4 mb-34.75 lg:justify-end">
-        <Button onClick={handleSubmit} preset={isEdited ? "completeActive" : "complete"}>
+        <Button
+          onClick={handleSubmit}
+          preset={isEdited ? "completeActive" : "complete"}
+          loading={isSubmitting}
+          disabled={isSubmitting || isDeleting}
+        >
           수정 완료
         </Button>
-        <Button preset="delete" onClick={handleDelete}>
+        <Button
+          preset="delete"
+          onClick={handleDelete}
+          loading={isDeleting}
+          disabled={isSubmitting || isDeleting}
+        >
           삭제하기
         </Button>
       </div>

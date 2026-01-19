@@ -31,6 +31,7 @@ export default function TodoInput() {
       <Button
         preset={inputValue.trim() ? "addPrimary" : "add"}
         type="submit"
+        loading={isPending}
         disabled={isPending || !inputValue.trim()}
       >
         <span>추가하기</span>

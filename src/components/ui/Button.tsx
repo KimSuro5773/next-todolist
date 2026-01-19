@@ -4,6 +4,7 @@ import PlusAltIcon from "@/components/icons/PlusAltIcon";
 import XIcon from "@/components/icons/XIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
 import EditIcon from "@/components/icons/EditIcon";
+import { Spinner } from "./spinner";
 
 type ButtonPreset =
   | "add" // 추가하기 - 흰색, 반응형 텍스트
@@ -16,6 +17,7 @@ type ButtonPreset =
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   preset: ButtonPreset;
+  loading?: boolean;
   children?: ReactNode;
 }
 
@@ -73,8 +75,14 @@ const presetConfig = {
   },
 };
 
-export default function Button({ preset, children, className = "", ...props }: ButtonProps) {
-  const config = presetConfig[preset]; // 아이콘 자동 매핑
+export default function Button({
+  preset,
+  children,
+  loading,
+  className = "",
+  ...props
+}: ButtonProps) {
+  const config = presetConfig[preset];
   const Icon = config.icon;
 
   const baseStyles =
@@ -84,7 +92,7 @@ export default function Button({ preset, children, className = "", ...props }: B
 
   return (
     <button className={styles} {...props}>
-      <Icon />
+      {loading ? <Spinner className="size-4" /> : <Icon />}
       {!config.iconOnly && children && <span className={config.textStyle}>{children}</span>}
     </button>
   );

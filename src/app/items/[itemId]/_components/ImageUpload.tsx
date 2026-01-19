@@ -2,8 +2,9 @@
 
 import { uploadImage } from "@/actions/todo";
 import Button from "@/components/ui/Button";
+import { Spinner } from "@/components/ui/spinner";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface ImageUploadProps {
   imageUrl: string;
@@ -12,6 +13,7 @@ interface ImageUploadProps {
 
 export default function ImageUpload({ imageUrl, onImageChange }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleButtonClick = () => {
     inputRef.current?.click();
@@ -24,11 +26,14 @@ export default function ImageUpload({ imageUrl, onImageChange }: ImageUploadProp
     const formData = new FormData();
     formData.append("image", file);
 
+    setIsUploading(true);
     try {
       const url = await uploadImage(formData);
       onImageChange(url);
     } catch (error) {
       alert(error);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -47,6 +52,12 @@ export default function ImageUpload({ imageUrl, onImageChange }: ImageUploadProp
         onChange={handleFileChange}
         className="hidden"
       />
+
+      {isUploading && (
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <Spinner className="size-10 text-white" />
+        </div>
+      )}
 
       <div className="absolute bottom-4 right-4">
         <Button preset={imageUrl ? "iconEdit" : "iconAdd"} onClick={handleButtonClick} />
