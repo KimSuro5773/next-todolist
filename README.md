@@ -2,7 +2,7 @@
 
 ## 배포 링크
 
-배포 링크 : [todolist-doit.vercel.app](todolist-doit.vercel.app)
+배포 링크 : [https://todolist-doit.vercel.app/](https://todolist-doit.vercel.app/)
 
 ## 주요기능
 
